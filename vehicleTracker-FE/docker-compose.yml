@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:3000/api
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    image: your-backend-image:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres
+      - DB_NAME=vehicle_tracker
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres332
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=vehicle_tracker
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres332
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

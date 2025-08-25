@@ -1,0 +1,96 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:13-alpine
+    container_name: vehicle-tracker-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vehicle_tracker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/src/database:/docker-entrypoint-initdb.d
+    networks:
+      - vehicle-tracker-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Adminer for database management
+  adminer:
+    image: adminer:4.8.1
+    container_name: vehicle-tracker-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - vehicle-tracker-network
+    depends_on:
+      - postgres
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: runner
+    container_name: vehicle-tracker-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: vehicle_tracker
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_ACCESS_SECRET: your-super-secret-access-key-development
+      JWT_REFRESH_SECRET: your-super-secret-refresh-key-development
+      JWT_ACCESS_EXPIRES_IN: 15m
+      JWT_REFRESH_EXPIRES_IN: 7d
+      CORS_ORIGIN: http://localhost:5173,http://localhost:3001
+    ports:
+      - "3000:3000"
+    networks:
+      - vehicle-tracker-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend/src:/app/src:ro # For development hot reload
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis (optional, for future caching)
+  redis:
+    image: redis:7-alpine
+    container_name: vehicle-tracker-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - vehicle-tracker-network
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+networks:
+  vehicle-tracker-network:
+    name: vehicle-tracker-network
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: vehicle-tracker-postgres-data
+  redis_data:
+    name: vehicle-tracker-redis-data
