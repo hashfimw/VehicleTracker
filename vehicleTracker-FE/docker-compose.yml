@@ -15,7 +15,7 @@ services:
       - app-network
 
   backend:
-    image: your-backend-image:latest
+    image: vehicle-tracker-backend:latest
     ports:
       - "3000:3000"
     environment:

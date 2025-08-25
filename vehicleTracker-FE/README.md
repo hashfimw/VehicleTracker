@@ -1,67 +1,67 @@
-# Vehicle Tracker Frontend
+# Frontend Pelacak Kendaraan
 
-A modern React-based frontend for the Vehicle Tracker system, built with TypeScript, Vite, TailwindCSS, and ShadCN UI.
+Frontend modern berbasis React untuk sistem Pelacak Kendaraan, dibangun dengan TypeScript, Vite, TailwindCSS, dan ShadCN UI.
 
-## Features
+## Fitur
 
-- JWT Authentication with token refresh
-- Protected routes and role-based access
-- Real-time vehicle tracking dashboard
-- Vehicle status monitoring by date
-- Excel report generation and download
-- Responsive design with modern UI components
-- State management with Zustand + React Query
-- Form validation with React Hook Form + Zod
-- Type-safe API integration
+- Autentikasi JWT dengan penyegaran token
+- Rute yang dilindungi dan akses berbasis peran
+- Dashboard pelacakan kendaraan real-time
+- Pemantauan status kendaraan berdasarkan tanggal
+- Pembuatan dan unduhan laporan Excel
+- Desain responsif dengan komponen UI modern
+- Manajemen state dengan Zustand + React Query
+- Validasi form dengan React Hook Form + Zod
+- Integrasi API yang type-safe
 
-## Tech Stack
+## Stack Teknologi
 
 - **Framework**: React 18 + TypeScript
 - **Build Tool**: Vite
 - **Styling**: TailwindCSS + ShadCN UI
-- **State Management**: Zustand + React Query
+- **Manajemen State**: Zustand + React Query
 - **Routing**: React Router v6
-- **Forms**: React Hook Form + Zod validation
-- **HTTP Client**: Axios with interceptors
+- **Forms**: React Hook Form + validasi Zod
+- **HTTP Client**: Axios dengan interceptors
 - **Icons**: Lucide React
 
-## Quick Start
+## Memulai dengan Cepat
 
-1. **Clone and install dependencies**:
+1. **Clone dan install dependencies**:
 
    ```bash
    npm install
    ```
 
-2. **Set up environment variables**:
+2. **Atur variabel environment**:
 
    ```bash
    cp .env.example .env
-   # Edit .env with your backend URL
+   # Edit .env dengan URL backend Anda
    ```
 
-3. **Start development server**:
+3. **Jalankan development server**:
 
    ```bash
    npm run dev
    ```
 
-4. **Build for production**:
+4. **Build untuk production**:
    ```bash
    npm run build
    ```
 
-## Environment Variables
+## Variabel Environment
 
 ```env
 VITE_API_BASE_URL=http://localhost:3000/api
-VITE_APP_NAME=Vehicle Tracker
+VITE_APP_NAME=Pelacak Kendaraan
 ```
 
-## Demo Credentials
+## Kredensial Demo
 
-- **Admin**: admin@example.com / password123
-- **User**: user@example.com / password123
+- **Admin**: admin@vehicletracker.com / password123
+- **User**: user@vehicletracker.com / password123
 
 ## Deployment
 
@@ -71,7 +71,7 @@ VITE_APP_NAME=Vehicle Tracker
 # Build image
 docker build -t vehicle-tracker-frontend .
 
-# Run container
+# Jalankan container
 docker run -p 80:80 vehicle-tracker-frontend
 ```
 
@@ -81,54 +81,54 @@ docker run -p 80:80 vehicle-tracker-frontend
 docker-compose up --build
 ```
 
-## Project Structure
+## Struktur Proyek
 
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── ui/             # ShadCN UI components
-│   ├── layout/         # Layout components
-│   └── common/         # Common components
-├── pages/              # Page components
+├── components/          # Komponen UI yang dapat digunakan ulang
+│   ├── ui/             # Komponen ShadCN UI
+│   ├── layout/         # Komponen layout
+│   └── common/         # Komponen umum
+├── pages/              # Komponen halaman
 ├── hooks/              # Custom hooks
-├── lib/                # Utilities & configurations
+├── lib/                # Utilitas & konfigurasi
 ├── store/              # Zustand stores
-├── types/              # TypeScript types
-├── services/           # API services
+├── types/              # Tipe TypeScript
+├── services/           # Layanan API
 └── App.tsx
 ```
 
-## Key Features Implementation
+## Implementasi Fitur Utama
 
-### Authentication Flow
+### Alur Autentikasi
 
-- JWT tokens stored in Zustand store
-- Automatic token refresh on API calls
-- Protected routes with role-based access
+- Token JWT disimpan dalam store Zustand
+- Penyegaran token otomatis pada panggilan API
+- Rute yang dilindungi dengan akses berbasis peran
 
-### Vehicle Management
+### Manajemen Kendaraan
 
-- Real-time vehicle status tracking
-- Pagination and search functionality
-- Detailed vehicle status history by date
+- Pelacakan status kendaraan real-time
+- Fungsi paginasi dan pencarian
+- Riwayat status kendaraan detail berdasarkan tanggal
 
-### Reports System
+### Sistem Laporan
 
-- Interactive report filters
-- Excel report generation
-- Real-time report preview
+- Filter laporan interaktif
+- Pembuatan laporan Excel
+- Preview laporan real-time
 
-### Responsive Design
+### Desain Responsif
 
-- Mobile-first approach with TailwindCSS
-- Modern UI components from ShadCN
-- Consistent design system
+- Pendekatan mobile-first dengan TailwindCSS
+- Komponen UI modern dari ShadCN
+- Sistem desain yang konsisten
 
-## Integration with Backend
+## Integrasi dengan Backend
 
-This frontend is designed to work seamlessly with the Vehicle Tracker backend API. It handles:
+Frontend ini dirancang untuk bekerja dengan mulus bersama API backend Pelacak Kendaraan. Ini menangani:
 
-- Authentication via `/auth` endpoints
-- Vehicle data via `/vehicles` endpoints
-- User management via `/users` endpoints (admin only)
-- Report generation via `/reports` endpoints
+- Autentikasi melalui endpoint `/auth`
+- Data kendaraan melalui endpoint `/vehicles`
+- Manajemen pengguna melalui endpoint `/users` (khusus admin)
+- Pembuatan laporan melalui endpoint `/reports`

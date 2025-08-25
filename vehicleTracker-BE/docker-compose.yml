@@ -70,27 +70,3 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-
-  # Redis (optional, for future caching)
-  redis:
-    image: redis:7-alpine
-    container_name: vehicle-tracker-redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    networks:
-      - vehicle-tracker-network
-    command: redis-server --appendonly yes
-    volumes:
-      - redis_data:/data
-
-networks:
-  vehicle-tracker-network:
-    name: vehicle-tracker-network
-    driver: bridge
-
-volumes:
-  postgres_data:
-    name: vehicle-tracker-postgres-data
-  redis_data:
-    name: vehicle-tracker-redis-data
